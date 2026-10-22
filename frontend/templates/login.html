@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#050a13"><link rel="manifest" href="/static/manifest.webmanifest"><link rel="icon" href="/static/icon.svg">
+<title>Smart Placement Predictions | Secure Login</title>
+<meta name="csrf-token" content="{{ csrf_token }}">
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body class="auth-page">
+<canvas id="particleCanvas" class="particle-canvas"></canvas>
+<div class="auth-shell">
+  <div class="auth-card">
+    <section class="auth-visual">
+      <div class="orb one"></div><div class="orb two"></div>
+      <div class="visual-brand"><div class="logo-box">🎓</div><div>Smart Placement<br>Predictions</div></div>
+      <div class="eyebrow" style="margin-top:55px">AI-POWERED CAREER PLATFORM</div>
+      <h1>Turn your skills into <span class="gradient-text">opportunities.</span></h1>
+      <p class="visual-copy">One intelligent workspace for placement prediction, resume analysis, live web research and an AI career companion.</p>
+      <div class="feature-list">
+        <div class="feature"><b>🎯 Placement AI</b><small>Random Forest prediction</small></div>
+        <div class="feature"><b>📄 Resume Intelligence</b><small>PDF + Ollama review</small></div>
+        <div class="feature"><b>🤖 8 AI Agents</b><small>Chat, search, research</small></div>
+        <div class="feature"><b>🖼️ AI Visuals</b><small>Generate project images</small></div>
+      </div>
+    </section>
+    <section class="auth-form">
+      <div class="brand-mark"><div class="logo-box">🚀</div><span>SMART PLACEMENT<br><small class="muted">PREDICTIONS</small></span></div>
+      <h2>Welcome back</h2>
+      <p class="sub">Enter your email and password. Students and admin both sign in here — your saved role opens automatically.</p>
+      <form onsubmit="login(event)">
+        <label class="field-label">Email address</label>
+        <div class="input-wrap"><input id="email" type="email" autocomplete="email" placeholder="you@example.com" required></div>
+        <label class="field-label">Password</label>
+        <div class="input-wrap"><input id="password" type="password" autocomplete="current-password" placeholder="Enter your password" required></div>
+        <button id="loginBtn" class="primary-btn" type="submit">Sign in <span>→</span></button>
+      </form>
+      <div class="auth-links"><a href="/register">Create new account</a><button class="text-btn" type="button" onclick="forgot()">Forgot password?</button></div>
+      <div class="secure-note">🔐 One simple login for <b>Students &amp; Admins</b> · role opens automatically</div>
+      <div id="msg" class="form-message hidden"></div>
+      <div class="auth-footer">New here? <a href="/register">Create a free account</a> — verification takes under a minute.</div>
+    </section>
+  </div>
+</div>
+<script src="/static/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,9 @@
+.env
+__pycache__/
+*.pyc
+.pytest_cache/
+data/Placement_Data_Full_Class.csv
+placement.db
+uploads/
+models/*.joblib
+models/metrics.json

@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#050a13"><meta name="mobile-web-app-capable" content="yes">
+<link rel="manifest" href="/static/manifest.webmanifest"><link rel="icon" href="/static/icon.svg">
+<title>Smart Placement Predictions | Student</title><meta name="csrf-token" content="{{ csrf_token }}"><link rel="stylesheet" href="/static/style.css">
+</head>
+<body class="sp-shell">
+<div class="app-layout">
+<aside class="side-nav" id="sideNav">
+  <div class="side-brand"><div class="side-logo">🎓</div><div class="side-brand-text"><b>Smart Placement</b><small>Predictions</small></div><button class="side-close" id="sideClose" type="button">×</button></div>
+  <div class="side-user"><div class="avatar">SP</div><div><b data-user-name>{{user.name}}</b><small data-user-email>{{user.email}}</small></div></div>
+  <div class="side-section-label">WORKSPACE</div>
+  <nav class="side-links" aria-label="Project navigation">
+    <button class="side-link active" data-page="ai"><span>🤖</span><div><b>AI Agent</b><small>Ask anything</small></div></button>
+    <button class="side-link" data-page="dashboard"><span>⌂</span><div><b>Dashboard</b><small>Overview</small></div></button>
+    <button class="side-link" data-page="prediction"><span>🎯</span><div><b>ML Prediction</b><small>Placement probability</small></div></button>
+    <button class="side-link" data-page="opportunities"><span>🏢</span><div><b>Company Opportunities</b><small>Role matches &amp; careers</small></div></button>
+    <button class="side-link" data-page="student"><span>👨‍🎓</span><div><b>Student Information</b><small>Academic profile</small></div></button>
+    <button class="side-link" data-page="resume"><span>📄</span><div><b>Resume Analyzer</b><small>AI resume review</small></div></button>
+    <button class="side-link" data-page="courses"><span>🎓</span><div><b>Courses & Skills</b><small>BCA • MCA • MBA • All</small></div></button>
+    <button class="side-link" data-page="projects"><span>🗂️</span><div><b>Projects & Reports</b><small>Build & prepare</small></div></button>
+    <button class="side-link" data-page="library"><span>📁</span><div><b>My Library</b><small>Files & creations</small></div></button>
+  </nav>
+  <div class="side-spacer"></div>
+  <div class="side-section-label">PROJECT</div>
+  <button class="side-link side-about" data-page="about"><span>ⓘ</span><div><b>About Smart Placement</b><small>All project information</small></div></button>
+  <button class="side-link side-logout" onclick="logout()"><span>↪</span><div><b>Logout</b><small>End session</small></div></button>
+</aside>
+<div class="side-backdrop" id="sideBackdrop"></div>
+
+<div class="main-area">
+<header class="topbar">
+  <button class="mobile-menu" id="mobileMenu" type="button" aria-label="Toggle sidebar" title="Show or hide sidebar">☰</button>
+  <div><span class="eyebrow">SMART PLACEMENT PREDICTIONS</span><h1 id="pageTitle">AI Agent</h1></div>
+  <div class="top-actions account-top"><button class="account-trigger" type="button" onclick="toggleAccountMenu()"><span class="avatar" id="topAvatar">SP</span><span class="top-user"><b data-user-name>{{user.name}}</b><small data-user-email>{{user.email}}</small></span><span class="account-chevron">⌄</span></button><div id="accountMenu" class="account-menu hidden"></div></div>
+</header>
+
+<main class="content-area">
+<section class="page-section active" data-section="ai">
+  <div class="page-intro"><div><span class="eyebrow">ONE SMART AI AGENT</span><h2>Ask about your studies, placement or this project.</h2><p>The AI Agent understands Smart Placement Predictions and can use files, web search, deep research, visuals and image creation.</p></div></div>
+  <section class="glass-card hub-card" id="hub" aria-label="Smart Placement AI Agent">
+    <div class="hub-top"><div><div class="eyebrow">SMART PLACEMENT AI</div><h2 class="hub-title">Your single AI Agent</h2><p class="voice-caption">🎙️ Speak naturally or type your question • AI can reply with voice</p></div><span class="agent-status"><i></i> Ready</span></div>
+    <div class="hub-logs" id="hubLogs"></div>
+    <div id="attachTray" class="attach-tray hidden"></div>
+    <div class="hub-compose">
+      <button class="plus-btn" id="plusBtn" type="button" aria-label="Add files and tools" aria-expanded="false">+</button>
+      <div id="modePill" class="mode-pill hidden"></div>
+      <textarea id="hubInput" rows="1" enterkeyhint="send" placeholder="Ask anything about Smart Placement Predictions…" aria-label="Message"></textarea>
+      <button class="voice-btn" id="voiceBtn" type="button" aria-label="Speak to AI Agent" title="Speak to AI Agent"><span class="voice-icon">🎙️</span><span class="voice-wave" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span></button>
+      <button class="voice-toggle" id="voiceToggle" type="button" aria-label="Toggle AI voice response" title="AI voice response: On">🔊</button>
+      <button class="send-btn" id="hubSend" type="button" aria-label="Send">➤</button>
+    </div>
+    <div class="menu-backdrop hidden" id="menuBackdrop"></div>
+    <div class="plus-menu hidden" id="plusMenu" role="menu">
+      <div class="menu-heading">AI Agent tools</div>
+      <button type="button" role="menuitem" data-action="files"><span class="mi">📎</span><b>Add photos &amp; files</b><small>Upload from your computer</small></button>
+      <button type="button" role="menuitem" data-action="library"><span class="mi">🗂️</span><b>Add from library</b><small>Browse your saved files</small></button>
+      <button type="button" role="menuitem" data-action="mode:image"><span class="mi">🎨</span><b>Create image</b><small>Visualize anything</small></button>
+      <button type="button" role="menuitem" data-action="sketch"><span class="mi">✏️</span><b>Sketch</b><small>Draw and attach an image</small></button>
+      <button type="button" role="menuitem" data-action="mode:search"><span class="mi">🌐</span><b>Web search</b><small>Find real-time information</small></button>
+      <button type="button" role="menuitem" data-action="mode:research"><span class="mi">🔬</span><b>Deep research</b><small>Get a detailed researched report</small></button>
+      <button type="button" role="menuitem" data-action="mode:visualize"><span class="mi">📊</span><b>Visualize</b><small>Create charts, diagrams &amp; interactive tools</small></button>
+      <div class="menu-divider"></div>
+      <a class="tool-link" href="https://platform.openai.com/" target="_blank" rel="noopener"><span class="mi">◉</span><b>OpenAI Platform</b><small>Open the official platform</small></a>
+      <a class="tool-link" href="https://github.com/" target="_blank" rel="noopener"><span class="mi">●</span><b>GitHub</b><small>Open GitHub repositories</small></a>
+    </div>
+    <input type="file" id="fileInput" class="sr-only" multiple accept="image/*,.pdf,.docx,.txt,.md,.csv,.json,.py,.js,.java,.c,.cpp,.html,.css,.sql">
+    <input type="file" id="cameraInput" class="sr-only" accept="image/*" capture="environment">
+  </section>
+  <div class="quick-grid">
+    <button data-ai-prompt="Explain Smart Placement Predictions project in simple Hinglish"><b>📘 Explain my project</b><small>Modules, technologies and workflow</small></button>
+    <button data-ai-prompt="How does the Random Forest placement prediction work in this project?"><b>🎯 Explain ML prediction</b><small>Algorithm + inputs + result</small></button>
+    <button data-ai-prompt="Give me important viva questions and answers for Smart Placement Predictions"><b>🎤 Prepare my viva</b><small>Project viva in easy language</small></button>
+    <button data-ai-prompt="Explain all courses supported by this placement platform including BCA, MCA, MBA, BTech, BBA, BCom, BSc and other courses"><b>🎓 Courses & careers</b><small>Course-wise placement guidance</small></button>
+  </div>
+</section>
+
+<section class="page-section" data-section="dashboard"><div class="page-intro"><div><span class="eyebrow">OVERVIEW</span><h2>Your placement command center</h2><p>Everything important is organized in the sidebar so you do not need to open or edit the code repeatedly.</p></div></div><div class="stat-grid"><div class="stat-card"><span>Account</span><strong>Verified</strong></div><div class="stat-card"><span>Role</span><strong>Student</strong></div><div class="stat-card"><span>AI Agent</span><strong>1 Smart Agent</strong></div><div class="stat-card"><span>Prediction</span><strong>Ready</strong></div></div><div class="dashboard-grid"><div class="glass-card info-card"><span class="big-icon">🤖</span><h3>Single AI Agent</h3><p>Ask project, placement, coding, resume, course or general study questions from one place.</p></div><div class="glass-card info-card"><span class="big-icon">🎯</span><h3>ML Prediction</h3><p>Compare Random Forest, Logistic Regression, Decision Tree and SVM, then predict placement using the selected algorithm.</p></div><div class="glass-card info-card"><span class="big-icon">📄</span><h3>Resume Analysis</h3><p>Upload a PDF and get AI-assisted strengths, missing keywords and improvement suggestions.</p></div><div class="glass-card info-card"><span class="big-icon">🌐</span><h3>Research Tools</h3><p>Use web search, deep research, visualization, image generation, files and sketches from the AI Agent.</p></div></div></section>
+
+<section class="page-section" data-section="prediction"><div class="page-intro"><div><span class="eyebrow">MACHINE LEARNING</span><h2>Placement Prediction &amp; Algorithm Accuracy</h2><p>Compare four ML algorithms, manually evaluate their accuracy, save every evaluation in history, and then run a student placement prediction.</p></div></div>
+<section class="glass-card"><div class="card-head"><div><h2>🎯 Run Placement Prediction</h2><div class="sub">Choose an algorithm and enter the academic profile to generate a placement probability.</div></div><div class="icon-chip" id="selectedAlgorithmChip">RF</div></div>
+<div class="form-grid"><div class="form-control"><label>ML Algorithm</label><select id="algorithm"><option value="random_forest">Random Forest</option><option value="logistic_regression">Logistic Regression</option><option value="decision_tree">Decision Tree</option><option value="svm">Support Vector Machine (SVM)</option></select></div><div class="form-control"><label>Course</label><select id="course"><option>BCA</option><option>MCA</option><option>MBA</option><option>B.Tech</option><option>BBA</option><option>B.Com</option><option>B.Sc</option><option>M.Sc</option><option>Other</option></select></div><div class="form-control"><label>CGPA / 10</label><input id="cgpa" type="number" min="0" max="10" step=".1" value="8.2"></div><div class="form-control"><label>10th %</label><input id="tenth" type="number" min="0" max="100" value="85"></div><div class="form-control"><label>12th %</label><input id="twelfth" type="number" min="0" max="100" value="78"></div><div class="form-control"><label>Aptitude / E-test %</label><input id="aptitude" type="number" min="0" max="100" value="75"></div><div class="form-control"><label>MBA / Management %</label><input id="mba" type="number" min="0" max="100" value="65"></div><div class="form-control"><label>Internship / Workex</label><select id="internship"><option value="1">Yes</option><option value="0">No</option></select></div><div class="form-control"><label>HSC stream</label><select id="hsc_stream"><option>Science</option><option>Commerce</option><option>Arts</option></select></div><div class="form-control"><label>Degree type</label><select id="degree_type"><option>Sci&Tech</option><option>Comm&Mgmt</option><option>Others</option></select></div><div class="form-control"><label>Specialisation</label><select id="specialisation"><option>Mkt&Fin</option><option>Mkt&HR</option></select></div></div>
+<div class="prediction-actions"><button id="predictBtn" class="action-btn" onclick="predict()">Run prediction →</button><button id="evaluateBtn" class="ghost-btn" onclick="evaluateAlgorithms()">📊 Find accuracy of all 4 algorithms</button></div><div id="predictionResult" class="result-panel hidden"><div class="score-row"><div id="predictionCircle" class="score-ring"><strong id="predictionScore">0%</strong></div><div><div class="eyebrow">MODEL RESULT</div><h3 id="predictionStatus" style="margin:7px 0 0">—</h3><div id="predictionMeta" class="meta-line"></div></div></div><ul id="predictionTips" class="tips"></ul></div></section>
+<div class="algorithm-grid algorithm-grid-four"><div class="glass-card info-card algorithm-card"><h3>🌲 Random Forest</h3><p>Combines many decision trees for placement classification.</p><strong id="accRandomForest">—</strong><small>Latest accuracy</small></div><div class="glass-card info-card algorithm-card"><h3>📈 Logistic Regression</h3><p>Estimates the probability of Placed / Not Placed.</p><strong id="accLogistic">—</strong><small>Latest accuracy</small></div><div class="glass-card info-card algorithm-card"><h3>🌳 Decision Tree</h3><p>Uses decision rules based on student features.</p><strong id="accTree">—</strong><small>Latest accuracy</small></div><div class="glass-card info-card algorithm-card"><h3>⚙️ SVM</h3><p>Separates placement classes using a decision boundary.</p><strong id="accSvm">—</strong><small>Latest accuracy</small></div></div>
+<section class="visualization-grid" id="evaluationVisuals">
+  <article class="glass-card viz-card"><div class="card-head"><div><h2>📊 Model Metrics Comparison</h2><div class="sub">Accuracy, precision, recall and F1 score on the same test split.</div></div></div><div id="metricsChart" class="metrics-chart empty-chart">Run model evaluation to generate this chart.</div></article>
+  <article class="glass-card viz-card"><div class="card-head"><div><h2>🧩 Confusion Matrices</h2><div class="sub">Actual vs predicted class counts for each model.</div></div></div><div id="confusionCharts" class="confusion-grid empty-chart">Confusion matrices appear after evaluation.</div></article>
+  <article class="glass-card viz-card"><div class="card-head"><div><h2>📈 ROC Curve</h2><div class="sub">True-positive rate vs false-positive rate. AUC is shown where available.</div></div></div><div id="rocChart" class="roc-chart empty-chart">ROC curve appears after evaluation.</div></article>
+  <article class="glass-card viz-card"><div class="card-head"><div><h2>🎯 Recent Prediction Scores</h2><div class="sub">Visual summary of the latest saved student prediction probabilities for this account.</div></div><button class="ghost-btn" type="button" onclick="loadPredictionHistory()">↻ Refresh</button></div><div id="predictionChart" class="prediction-chart empty-chart">Run a student prediction to create this chart.</div></article>
+  <article class="glass-card viz-card"><div class="card-head"><div><h2>🔄 Prediction Workflow</h2><div class="sub">How a student profile becomes a saved prediction.</div></div></div><div class="workflow-diagram"><div class="workflow-node">Student<br>Details</div><span>→</span><div class="workflow-node">Validate &amp;<br>Preprocess</div><span>→</span><div class="workflow-node">Trained ML<br>Algorithm</div><span>→</span><div class="workflow-node">Prediction<br>+ Probability</div><span>→</span><div class="workflow-node">Save to<br>History</div></div></article>
+</section>
+<section class="glass-card accuracy-history-card"><div class="card-head"><div><h2>🕘 Accuracy History</h2><div class="sub">Every manual evaluation is saved with date/time, accuracy, precision, recall and F1 score.</div></div><button class="ghost-btn" onclick="loadAccuracyHistory()">↻ Refresh</button></div><div id="accuracyHistory" class="history-table-wrap"><div class="muted">Run the accuracy check to create history.</div></div></section><section class="glass-card accuracy-history-card"><div class="card-head"><div><h2>🧾 Student Prediction History</h2><div class="sub">Every placement prediction you run is stored for this account with algorithm, probability and time.</div></div><button class="ghost-btn" onclick="loadPredictionHistory()">↻ Refresh</button></div><div id="predictionHistory" class="history-table-wrap"><div class="muted">No predictions yet.</div></div></section></section>
+
+<section class="page-section" data-section="opportunities">
+  <div class="page-intro"><div><span class="eyebrow">CAREER MATCHING WORKSPACE</span><h2>Company Opportunities &amp; Career Matches</h2><p>Explore entry-level roles, compare your skills with typical role requirements, and open official company career pages. A match is guidance—not a promise of selection or proof of a live vacancy.</p></div></div>
+  <div class="opportunity-summary">
+    <div class="glass-card opportunity-stat"><span>🎯</span><div><b id="oppProfileStatus">Profile not checked</b><small>Personalized matching</small></div></div>
+    <div class="glass-card opportunity-stat"><span>🧩</span><div><b id="oppSkillsCount">0 skills listed</b><small>Skills found in your profile</small></div></div>
+    <div class="glass-card opportunity-stat"><span>🔗</span><div><b>Official career links</b><small>Check openings and eligibility</small></div></div>
+  </div>
+  <section class="glass-card opportunity-filter"><div class="form-grid">
+    <div class="form-control"><label for="oppCourse">Course</label><select id="oppCourse"><option>BCA</option><option>MCA</option><option>B.Tech</option><option>BE</option><option>B.Sc</option><option>M.Sc</option><option>MBA</option><option>BBA</option><option>B.Com</option><option>Other</option></select></div>
+    <div class="form-control"><label for="oppCgpa">CGPA (out of 10)</label><input id="oppCgpa" type="number" min="0" max="10" step="0.1" placeholder="e.g. 7.2"></div>
+    <div class="form-control"><label for="oppInterest">Preferred role</label><select id="oppInterest"><option value="all">All suitable roles</option><option value="software">Software / Developer</option><option value="data">Data / Analytics</option><option value="testing">Testing / QA</option><option value="support">IT Support / Operations</option><option value="business">Business / Management</option></select></div>
+    <div class="form-control"><label for="oppSkills">Your skills</label><input id="oppSkills" placeholder="Python, SQL, HTML, communication"></div>
+  </div><div class="opportunity-actions"><button class="action-btn" id="findMatchesBtn" type="button">Find my company matches →</button><button class="secondary-btn" id="loadProfileMatchesBtn" type="button">Use saved student profile</button></div><p class="muted opportunity-note">Match scores are transparent rule-based estimates from the skills you enter and typical role requirements. They are not hiring decisions, selection probabilities, or live vacancy data.</p></section>
+  <div class="section-heading-row"><div><h3>Recommended role pathways</h3><p class="muted">Use official career sites to verify current openings, location, eligibility, deadlines and application instructions.</p></div><span class="pill-label" id="oppResultCount">Role examples</span></div>
+  <div id="opportunityResults" class="opportunity-grid">
+    <article class="glass-card opportunity-card"><div class="opportunity-card-top"><span class="company-mark">T</span><span class="pill-label">Entry-level example</span></div><h3>Graduate / Associate IT roles</h3><p class="muted">Typical pathway for graduates who meet the specific job posting's degree, marks, aptitude and assessment requirements.</p><div class="skill-tags"><span>Programming</span><span>Problem solving</span><span>Communication</span></div><a href="https://www.tcs.com/careers" target="_blank" rel="noopener noreferrer">Official TCS Careers ↗</a></article>
+    <article class="glass-card opportunity-card"><div class="opportunity-card-top"><span class="company-mark">I</span><span class="pill-label">Entry-level example</span></div><h3>Systems / Software roles</h3><p class="muted">Prepare programming fundamentals, databases, aptitude and communication; requirements vary by role and hiring drive.</p><div class="skill-tags"><span>Programming</span><span>DBMS</span><span>Aptitude</span></div><a href="https://www.infosys.com/careers/" target="_blank" rel="noopener noreferrer">Official Infosys Careers ↗</a></article>
+    <article class="glass-card opportunity-card"><div class="opportunity-card-top"><span class="company-mark">W</span><span class="pill-label">Entry-level example</span></div><h3>Graduate / Technology roles</h3><p class="muted">Build a clear resume, project portfolio and role-specific technical foundations before applying.</p><div class="skill-tags"><span>Projects</span><span>Core CS</span><span>Teamwork</span></div><a href="https://careers.wipro.com/" target="_blank" rel="noopener noreferrer">Official Wipro Careers ↗</a></article>
+    <article class="glass-card opportunity-card"><div class="opportunity-card-top"><span class="company-mark">A</span><span class="pill-label">Entry-level example</span></div><h3>Associate / Analyst roles</h3><p class="muted">Explore technology and business pathways based on your degree, communication, analytical ability and the posted criteria.</p><div class="skill-tags"><span>Analytical thinking</span><span>Communication</span><span>Digital skills</span></div><a href="https://www.accenture.com/in-en/careers" target="_blank" rel="noopener noreferrer">Official Accenture Careers ↗</a></article>
+    <article class="glass-card opportunity-card"><div class="opportunity-card-top"><span class="company-mark">H</span><span class="pill-label">Entry-level example</span></div><h3>Graduate / IT services roles</h3><p class="muted">Check graduate hiring programs and match your skills to the exact job description before applying.</p><div class="skill-tags"><span>Technical basics</span><span>Learning</span><span>Collaboration</span></div><a href="https://www.hcltech.com/careers" target="_blank" rel="noopener noreferrer">Official HCLTech Careers ↗</a></article>
+    <article class="glass-card opportunity-card"><div class="opportunity-card-top"><span class="company-mark">C</span><span class="pill-label">Entry-level example</span></div><h3>Software / Data / Support pathways</h3><p class="muted">Choose a specific role, review the published eligibility and tailor your resume to the listed responsibilities.</p><div class="skill-tags"><span>Role-specific skills</span><span>Projects</span><span>Problem solving</span></div><a href="https://careers.cognizant.com/india-en/" target="_blank" rel="noopener noreferrer">Official Cognizant Careers ↗</a></article>
+  </div>
+  <section class="glass-card skill-gap-panel"><div><span class="eyebrow">NEXT STEPS</span><h3>Your placement preparation checklist</h3></div><div class="checklist-grid"><div>✓ Complete your student profile and resume</div><div>✓ Compare skills against each job description</div><div>✓ Practice aptitude, communication and interviews</div><div>✓ Build 2–3 demonstrable academic projects</div><div>✓ Verify CGPA, backlog, graduation year and location criteria</div><div>✓ Apply only through trusted official career pages</div></div><p class="muted opportunity-note">Company names and role descriptions above are illustrative pathways, not a claim that these companies are hiring right now. Selection depends on the employer's actual criteria and recruitment process.</p></section>
+</section>
+
+<section class="page-section" data-section="student"><div class="page-intro"><div><span class="eyebrow">STUDENT PROFILE</span><h2>Student Information</h2><p>Keep your academic profile separate from the prediction screen. Save it once and reuse it later.</p></div></div><section class="glass-card"><div class="form-grid"><div class="form-control"><label>Full name</label><input id="profileName" value="{{user.name}}"></div><div class="form-control"><label>Email</label><input id="profileEmail" value="{{user.email}}" disabled></div><div class="form-control"><label>Course</label><select id="profileCourse"><option>BCA</option><option>MCA</option><option>MBA</option><option>B.Tech</option><option>BBA</option><option>B.Com</option><option>B.Sc</option><option>M.Sc</option><option>Other</option></select></div><div class="form-control"><label>Semester / Year</label><input id="profileSemester" placeholder="e.g. Semester 5"></div><div class="form-control"><label>College / University</label><input id="profileCollege" placeholder="Enter college or university"></div><div class="form-control"><label>CGPA / 10</label><input id="profileCgpa" type="number" min="0" max="10" step=".1"></div><div class="form-control"><label>10th %</label><input id="profileTenth" type="number" min="0" max="100"></div><div class="form-control"><label>12th %</label><input id="profileTwelfth" type="number" min="0" max="100"></div><div class="form-control"><label>Internship / Work Experience</label><select id="profileInternship"><option value="1">Yes</option><option value="0">No</option></select></div><div class="form-control form-span-2"><label>Skills</label><textarea id="profileSkills" rows="3" placeholder="Python, Java, SQL, HTML, CSS, ML..."></textarea></div></div><button class="action-btn" id="profileSaveBtn" onclick="saveProfile()">Save student information →</button><div id="profileMessage" class="form-message hidden"></div></section></section>
+
+<section class="page-section" data-section="resume">
+  <div class="page-intro"><div><span class="eyebrow">AI DOCUMENT REVIEW</span><h2>Resume Analyzer</h2><p>Upload a PDF resume and receive an AI-assisted placement review with clear, actionable feedback.</p></div></div>
+  <section class="glass-card resume-card">
+    <div class="resume-head">
+      <div class="resume-title"><div class="resume-icon">📄</div><div><span class="eyebrow">SMART RESUME INTELLIGENCE</span><h2>Analyze your resume with AI</h2><p>Upload your latest PDF and let the AI check skills, education, experience and placement readiness.</p></div></div>
+      <div class="resume-badge"><span>PDF</span><small>Max 10 MB</small></div>
+    </div>
+    <label class="resume-dropzone" id="resumeDropzone" for="resumeFile">
+      <div class="resume-upload-icon">☁</div>
+      <div class="resume-upload-title">Drop your PDF resume here</div>
+      <div class="resume-upload-sub">or click to browse from your computer</div>
+      <span class="resume-browse">Browse PDF File</span>
+      <div class="resume-hint">PDF only · Your file is used only for this analysis</div>
+      <input id="resumeFile" type="file" accept="application/pdf" onchange="previewFile(this)">
+    </label>
+    <div id="selectedResume" class="selected-resume hidden">
+      <div class="selected-file-icon">PDF</div><div class="selected-file-info"><b id="fileName">Resume.pdf</b><small>Ready for AI analysis</small></div><button type="button" class="remove-file" onclick="clearResumeFile()" aria-label="Remove file">×</button>
+    </div>
+    <button id="resumeBtn" class="action-btn resume-action" onclick="analyzeResume()">✨ Analyze Resume with AI <span>→</span></button>
+    <div id="resumeProgress" class="resume-progress hidden">
+      <div class="progress-title"><span>🤖 AI analysis in progress</span><span id="resumeProgressPct">0%</span></div>
+      <div class="progress-track"><div id="resumeProgressBar"></div></div>
+      <div class="analysis-steps"><div id="resumeStep1">○ Reading resume</div><div id="resumeStep2">○ Extracting skills &amp; experience</div><div id="resumeStep3">○ Analyzing with AI</div><div id="resumeStep4">○ Preparing placement suggestions</div></div>
+    </div>
+    <div id="resumeOut"></div>
+  </section>
+</section>
+
+<section class="page-section" data-section="courses"><div class="page-intro"><div><span class="eyebrow">COURSE-WISE SUPPORT</span><h2>BCA, MCA, MBA &amp; other courses</h2><p>The platform can be used as a common placement assistant across undergraduate, postgraduate and management courses.</p></div></div><div class="course-grid"><div class="glass-card course-card"><b>BCA</b><span>Programming • Web • DBMS • AI/ML • Placement</span></div><div class="glass-card course-card"><b>MCA</b><span>Advanced programming • Software engineering • Data/AI • Placement</span></div><div class="glass-card course-card"><b>MBA</b><span>Management • Aptitude • Communication • Business roles</span></div><div class="glass-card course-card"><b>B.Tech</b><span>CSE/IT and other branches • Technical placement</span></div><div class="glass-card course-card"><b>BBA / B.Com</b><span>Business • Finance • Marketing • Operations roles</span></div><div class="glass-card course-card"><b>B.Sc / M.Sc</b><span>Science, data and technical career preparation</span></div><div class="glass-card course-card"><b>Other Courses</b><span>Use the AI Agent for course-specific placement preparation.</span></div></div><div class="glass-card info-card"><h3>💡 Course-aware AI</h3><p>Ask the single AI Agent: “I am an MCA student, make my placement roadmap” or “I am an MBA student, prepare interview questions for me.” The AI can adapt its guidance to the course you mention.</p></div></section>
+
+<section class="page-section" data-section="projects"><div class="page-intro"><div><span class="eyebrow">PROJECT WORKSPACE</span><h2>Projects &amp; Reports</h2><p>Use the AI Agent to create and explain project material without leaving the dashboard.</p></div></div><div class="dashboard-grid"><div class="glass-card info-card"><span class="big-icon">🧩</span><h3>Project Ideas</h3><p>Generate placement-focused project ideas, modules, database designs and feature lists.</p></div><div class="glass-card info-card"><span class="big-icon">📝</span><h3>Reports</h3><p>Ask for abstract, objectives, methodology, technology stack, testing and conclusion in student-friendly language.</p></div><div class="glass-card info-card"><span class="big-icon">🎤</span><h3>Viva Preparation</h3><p>Ask the AI Agent for project viva questions, answers and a practical demo script.</p></div><div class="glass-card info-card"><span class="big-icon">📊</span><h3>Diagrams &amp; Visuals</h3><p>Use Visualize for charts, flow diagrams and interactive project explanations.</p></div></div></section>
+
+<section class="page-section" data-section="library"><div class="page-intro"><div><span class="eyebrow">YOUR FILES</span><h2>My Library</h2><p>Uploads, generated images and sketches are stored separately for your account.</p></div></div><section class="glass-card"><button class="action-btn" onclick="document.querySelector('[data-action=library]').click()">Open my library →</button><p class="muted" style="margin-top:12px">You can also attach files directly from the AI Agent using the + button.</p></section></section>
+
+<section class="page-section" data-section="notifications"><div class="page-intro"><div><span class="eyebrow">MESSAGES</span><h2>Notifications &amp; Admin Messages</h2><p>Important placement, interview and account messages from the administrator appear here and are also sent to your registered email.</p></div></div><div id="notificationList"><div class="glass-card info-card"><p class="muted">Loading messages…</p></div></div></section>
+
+<section class="page-section" data-section="about"><div class="page-intro"><div><span class="eyebrow">PROJECT INFORMATION</span><h2>About Smart Placement Predictions</h2><p>This section is the common project information page for students and administrators.</p></div></div>
+<div class="about-hero glass-card"><div class="about-icon">🎯</div><div><h2>Smart Placement Predictions</h2><p>An AI-assisted placement platform that combines student profiles, machine learning prediction, resume analysis and a multi-tool AI workspace in one system.</p></div></div>
+<div class="about-grid"><div class="glass-card info-card"><h3>🤖 AI &amp; Agent Features</h3><ul><li>One Smart Placement AI Agent</li><li>File/photo upload and personal library</li><li>Web search and deep research</li><li>Image generation and sketch attachment</li><li>Interactive visualization</li><li>Project, study, coding and placement assistance</li></ul></div><div class="glass-card info-card"><h3>🧠 ML &amp; AI Technologies</h3><ul><li>Random Forest placement prediction</li><li>Campus placement dataset</li><li>Ollama local LLM support</li><li>Gemini cloud fallback/support</li><li>PDF text extraction for resume review</li><li>AI-assisted recommendations</li></ul></div><div class="glass-card info-card"><h3>💻 Technology Stack</h3><ul><li>Python</li><li>FastAPI backend</li><li>Flask frontend/proxy</li><li>HTML, CSS, JavaScript</li><li>SQLite database</li><li>REST APIs and session authentication</li></ul></div><div class="glass-card info-card"><h3>🔐 Accounts &amp; Security</h3><ul><li>Student registration and login</li><li>Email OTP verification</li><li>Password reset flow</li><li>Persistent database sessions</li><li>Role-based Admin / Student access</li><li>Per-user private file library</li></ul></div><div class="glass-card info-card"><h3>👨‍🎓 Course Coverage</h3><ul><li>BCA</li><li>MCA</li><li>MBA</li><li>B.Tech / BE</li><li>BBA / B.Com</li><li>B.Sc / M.Sc and other courses</li></ul></div><div class="glass-card info-card"><h3>📈 Placement Workflow</h3><ol><li>Register / Login</li><li>Complete student profile</li><li>Run ML prediction</li><li>Analyze resume</li><li>Ask AI Agent for improvement</li><li>Prepare skills, interviews and projects</li></ol></div></div>
+<div class="glass-card tech-note"><h3>What the project is designed to solve</h3><p>It brings student information, placement prediction, resume analysis, AI assistance, research and project preparation into one accessible platform so students and administrators can understand and manage the placement workflow from a single dashboard.</p></div></section>
+</main></div></div>
+<div id="accountModal" class="account-modal hidden" role="dialog" aria-modal="true">
+  <div class="account-modal-box">
+    <button class="account-modal-close" type="button" onclick="closeAccountLogin()">×</button>
+    <div class="eyebrow">ACCOUNT ACCESS</div>
+    <div class="account-choice" id="accountChoiceStep">
+      <div class="account-step-badge">+</div>
+      <h2>Add another account</h2>
+      <p class="sub">Sign in to an existing account or create a new student account right here.</p>
+      <div class="account-choice-grid">
+        <button class="account-choice-btn" type="button" onclick="showAccountSignIn()"><span>↪</span><b>Sign in</b><small>Use an existing account</small></button>
+        <button class="account-choice-btn" type="button" onclick="showAccountCreate()"><span>＋</span><b>Create account</b><small>New account + email OTP</small></button>
+      </div>
+    </div>
+    <div id="accountLoginStep" class="hidden">
+      <button class="text-link-btn top-back" type="button" onclick="showAccountChoice()">← Account options</button>
+      <div class="account-step-badge">1</div>
+      <h2 id="accountModalTitle">Sign in</h2>
+      <p class="sub">Sign in with another registered email. Your account data stays separate.</p>
+      <form onsubmit="loginAnotherAccount(event)">
+        <label class="field-label">Email address</label>
+        <input id="accountLoginEmail" class="auth-input" type="email" required autocomplete="email" placeholder="you@example.com">
+        <label class="field-label">Password</label>
+        <input id="accountLoginPassword" class="auth-input" type="password" required autocomplete="current-password" placeholder="Enter password">
+        <button id="accountLoginBtn" class="primary-btn" type="submit">Sign in <span>→</span></button>
+      </form>
+      <button class="text-link-btn" type="button" onclick="showAccountCreate()">New here? Create a new account</button>
+    </div>
+    <div id="accountCreateStep" class="hidden">
+      <button class="text-link-btn top-back" type="button" onclick="showAccountChoice()">← Account options</button>
+      <div class="account-step-badge">1</div>
+      <h2>Create account</h2>
+      <p class="sub">Create a new student account without leaving the dashboard.</p>
+      <form onsubmit="createAnotherAccount(event)">
+        <label class="field-label">Full name</label>
+        <input id="accountCreateName" class="auth-input" type="text" minlength="2" required placeholder="Your full name">
+        <label class="field-label">Email address</label>
+        <input id="accountCreateEmail" class="auth-input" type="email" required autocomplete="email" placeholder="you@example.com">
+        <label class="field-label">Password</label>
+        <input id="accountCreatePassword" class="auth-input" type="password" minlength="8" required autocomplete="new-password" placeholder="Minimum 8 characters">
+        <button id="accountCreateBtn" class="primary-btn" type="submit">Create &amp; send OTP <span>→</span></button>
+      </form>
+      <button class="text-link-btn" type="button" onclick="showAccountSignIn()">Already registered? Sign in</button>
+    </div>
+    <div id="accountOtpStep" class="hidden">
+      <button class="text-link-btn top-back" type="button" onclick="backToAccountLogin()">← Back</button>
+      <div class="account-step-badge">2</div>
+      <h2>Check your inbox</h2>
+      <p class="sub">We sent a 6-digit OTP to <b id="accountOtpEmail"></b>.</p>
+      <label class="field-label">Verification code</label>
+      <input id="accountLoginOtp" class="auth-input otp-account-input" type="text" inputmode="numeric" maxlength="6" autocomplete="one-time-code" placeholder="Enter 6-digit OTP">
+      <button id="accountOtpBtn" class="primary-btn" type="button" onclick="verifyAnotherAccount()">Verify &amp; Switch <span>→</span></button>
+      <button id="accountResendBtn" class="ghost-btn account-resend" type="button" onclick="resendAnotherAccountOtp()">↻ Resend OTP</button>
+    </div>
+    <div id="accountLoginMsg" class="form-message hidden"></div>
+    <div class="account-modal-note">🔐 Each account has separate profile, predictions, history and private files. Passwords are never stored in the browser.</div>
+  </div>
+</div>
+<div id="hubModal" class="hub-modal hidden" role="dialog" aria-modal="true"><div class="hub-modal-box" id="hubModalBox"></div></div>
+<script src="/static/app.js"></script><script src="/static/hub.js"></script><script src="/static/sidebar.js"></script>
+</body></html>

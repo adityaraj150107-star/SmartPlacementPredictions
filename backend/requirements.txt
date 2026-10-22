@@ -1,0 +1,21 @@
+fastapi
+uvicorn[standard]
+flask
+requests
+python-dotenv
+pydantic[email]
+python-multipart
+pypdf
+langchain
+langchain-ollama
+pandas
+scikit-learn
+joblib
+ddgs
+google-genai
+bcrypt==4.0.1
+slowapi
+
+# Dev/test only (not required to run the app)
+pytest
+httpx

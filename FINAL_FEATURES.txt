@@ -1,0 +1,46 @@
+SMART PLACEMENT PREDICTIONS - FINAL FEATURE SET
+
+Account switcher:
+- ChatGPT-style saved account menu
+- Add another account from inside dashboard
+- Sign in existing account without returning to main login
+- Create new account from inside dashboard
+- OTP verification for new/unverified account
+- Resend OTP and back navigation
+- Separate per-user sessions/data
+
+AI Agent:
+- Single AI Agent
+- File/photo upload
+- Library attachments
+- Sketch attachment
+- Image generation endpoint
+- Web search/deep research/visualize modes
+- Voice UI hooks
+
+Placement / ML:
+- Random Forest
+- Logistic Regression
+- Decision Tree
+- SVM
+- Accuracy, precision, recall, F1
+- Accuracy history
+- Student prediction history
+
+Other:
+- Resume PDF analyzer
+- Courses & skills
+- Projects & reports
+- My Library
+- About Smart Placement
+- Admin dashboard and user management
+- Responsive desktop/mobile UI
+- White content area + dark professional sidebar
+
+IMPORTANT SETUP:
+1. Copy backend/.env.example to backend/.env.
+2. Configure SMTP/Gmail App Password for real OTP email delivery.
+3. Configure any optional AI keys/models required by your environment.
+4. Start backend and frontend using the included start scripts/README.
+
+Note: automated pytest could not be run in the build environment because Flask is not installed there. Python syntax compilation and JavaScript syntax checks were completed.

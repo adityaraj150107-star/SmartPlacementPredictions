@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><link rel="icon" href="/static/icon.svg"><title>Create Account | Smart Placement</title><meta name="csrf-token" content="{{ csrf_token }}"><link rel="stylesheet" href="/static/style.css"></head>
+<body class="auth-page">
+<canvas id="particleCanvas" class="particle-canvas"></canvas>
+<div class="auth-shell">
+  <div class="auth-card" style="min-height:620px">
+    <section class="auth-visual">
+      <div class="orb one"></div><div class="orb two"></div>
+      <div class="visual-brand"><div class="logo-box">🎓</div><div>Smart Placement<br>Predictions</div></div>
+      <div class="eyebrow" style="margin-top:55px">CREATE YOUR CAREER PROFILE</div>
+      <h1>Start your <span class="gradient-text">placement journey.</span></h1>
+      <p class="visual-copy">Create a secure Student account. Email verification keeps your account protected before you enter the platform.</p>
+      <div class="feature-list"><div class="feature"><b>✉️ Email verification</b><small>OTP expires in 10 minutes</small></div><div class="feature"><b>🔐 Secure password</b><small>Protected with bcrypt hashing</small></div></div>
+    </section>
+    <section class="auth-form">
+      <div class="brand-mark"><div class="logo-box">🚀</div><span>NEW ACCOUNT<br><small class="muted">STUDENT ACCESS</small></span></div>
+      <div class="register-steps"><span class="reg-step active" id="regStep1"><i>1</i> Account</span><span class="reg-line"></span><span class="reg-step" id="regStep2"><i>2</i> Verify email</span></div>
+      <div id="registerSlide" class="register-slide">
+        <div class="register-pane active" id="registerPane">
+          <h2>Create account</h2><p class="sub">Create your Student account. We will send a secure OTP to your email.</p>
+          <form onsubmit="registerUser(event)">
+            <label class="field-label">Full name</label><input id="name" class="auth-input" placeholder="Your full name" required>
+            <label class="field-label">Email address</label><input id="email" class="auth-input" type="email" autocomplete="email" placeholder="you@example.com" required>
+            <label class="field-label">Password</label><input id="password" class="auth-input" type="password" minlength="8" autocomplete="new-password" placeholder="Minimum 8 characters" required>
+            <button id="registerBtn" class="primary-btn" type="submit">Create account &amp; send OTP <span>→</span></button>
+          </form>
+        </div>
+        <div id="verifyPanel" class="register-pane verify-pane" aria-hidden="true">
+          <button type="button" class="back-step" onclick="backToRegister()">← Back to account details</button>
+          <div class="verify-icon">✉</div>
+          <span class="eyebrow">EMAIL VERIFICATION</span><h2>Check your inbox</h2>
+          <p class="sub">We sent a 6-digit OTP to <b id="verifyEmail"></b>. Enter it below to activate your account.</p>
+          <form onsubmit="verifyUser(event)"><input id="otp" class="auth-input otp-input" inputmode="numeric" maxlength="6" pattern="[0-9]{6}" placeholder="000000" autocomplete="one-time-code" required><button class="primary-btn" type="submit">Verify &amp; continue <span>✓</span></button></form>
+          <button id="resendOtpBtn" class="text-btn resend-btn" type="button" onclick="resendRegistrationOtp()">↻ Resend OTP</button>
+          <div class="verify-note">🔒 OTP expires in 10 minutes · Your email is used for account verification.</div>
+        </div>
+      </div>
+      <div id="msg" class="form-message hidden"></div>
+      <div class="auth-footer">Already have an account? <a href="/">Back to secure login</a></div>
+    </section>
+  </div>
+</div>
+<script src="/static/app.js"></script>
+</body>
+</html>
